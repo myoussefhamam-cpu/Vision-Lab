@@ -4,6 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Vision Lab</title>
+  <!-- Statistiques de visite (GoatCounter) -->
+  <script data-goatcounter="https://aix-radiopharmacie.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet"/>
   <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
@@ -1429,6 +1431,9 @@ function captureSystemResult(source, predictions) {
 
 predictImgBtn.addEventListener('click', () => {
   if (!model || !previewImg.src) return;
+  if (window.goatcounter && window.goatcounter.count){
+    window.goatcounter.count({ path: 'prediction-lancee', title: 'Prédiction lancée', event: true });
+  }
   const predictionSource = (resultArea.style.display === 'block' && resultImg.src) ? resultImg : previewImg;
   analyzeImage(predictionSource);
 });
@@ -1678,6 +1683,9 @@ document.getElementById('screenshot-btn').addEventListener('click', async () => 
 document.getElementById('screenshot-pdf-btn').addEventListener('click', () => {
   const ssImg = document.getElementById('screenshot-img');
   if (!ssImg.src) return;
+  if (window.goatcounter && window.goatcounter.count){
+    window.goatcounter.count({ path: 'telechargement-pdf', title: 'Téléchargement PDF', event: true });
+  }
 
   if (typeof window.jspdf === 'undefined') {
     setModelStatus('Erreur : librairie PDF non chargée (vérifie la connexion internet)', 'error');
